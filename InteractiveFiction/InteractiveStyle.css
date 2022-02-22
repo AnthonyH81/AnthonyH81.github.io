@@ -1,20 +1,20 @@
-h1 {
+h1{
      font-size: 30px;
      color: white;
      text-align: center;
      font-family: georgia;
      font-weight: bold;
      border-bottom: 2px solid white;
-     margin-left: 80px;
-     margin-right: 80px;
+     margin-left: 10%;
      height: 50px;
+     width: 80%;
 }
  p {
      font-size: 20px;
      color: white;
      font-family: georgia;
-     margin-left: 80px;
-     margin-right: 80px;
+     margin-left: 10%;
+     width: 80%;
      text-align: left;
 }
  ul {
@@ -28,8 +28,6 @@ h1 {
      text-align: left;
      border-style: transparent;
      background-color: transparent;
-     padding-left: 80px;
-     padding-right: 80px;
      padding-top: 8px;
      padding-bottom: 8px;
      font-size: 20px;
@@ -40,7 +38,8 @@ h1 {
 }
  div {
      text-align: left;
+     margin-left: 10%;
 }
- html {
+ html{
      background-color: black;
 }
