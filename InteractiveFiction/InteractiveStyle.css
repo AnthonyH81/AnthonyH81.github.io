@@ -40,6 +40,14 @@ h1{
      text-align: left;
      margin-left: 10%;
 }
+
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
+
  html{
      background-color: black;
 }
