@@ -181,46 +181,52 @@ app.post('/LoginError', urlencodedParser, function (req, res) {
 });
 
 app.get('/Social', function (req, res) {
-var feedList = [];
-var feedOutput = "";
+//var feedList = [];
+var feedOutput = `<link href="BlogCSS.css" rel="stylesheet"><h1>${req.session.user.ScreenName}'s Feed'</h1>\n`;
   if(req.session.user) {
     // let s = JSON.stringify(req.session, null, 4);
     // let output = `<p>Welcome, ${req.session.user.ScreenName}.</p><pre>${s}</pre>`;
     //   output += `<a href="/social/logout">log out</a>`;
     //   res.send(makeHTMLPage(output));
-    var js = JSON.parse(req.session);
-    for(fee = 0; fee < js.Following.length; fee++) {
       client.connect(function (err) {
               if (err) { throw err; }
               const collection = client.db("SocialMediaDatabase").collection("SocialMedia");
-              let query = { 'ScreenName': js.Following[fee]};
+              let query = { 'ScreenName': req.session.user.ScreenName};
               collection.findOne(query, function (err,result) {
                   if (err) { throw err;  }
-                  feedList.push({result.RecentPosts, result.ScreenName});
-                  feedOutput += `<div><h2> <a href='/${result.ScreenName}' style="color: blue">${result.ScreenName}</a>
-                  <p>${result.RecentPosts}</p>`;
+
+                  for(feedi = 0; feedi < result.Following.length; feedi++) {
+
+                    feedOutput += FindPost(result.Following[feedi]);
+
+                  }
                   client.close();
                   });
               });
-    }
-
-
+    output += `<a href="/Logout">Log Out</a>`;
+    res.send(makeHTMLPage(feedOutput));
   } else {
     res.redirect('/Login');
   }
-
-var feedOutput = "";
-
-for(feedInt = 0; feedInt < feedList.length; feedInt++) {
-  feedOutput += `<div><h2> <a href='/Task/${feedList[feedInt][1]}' style="color: white">${feedList[feedInt][1]}</a>
-  <p>${feedList[feedInt][0]}</p>`;
-}
-
-res.send(makeHTMLPage(toDoPage));
-
 });
 
-app.get('/Social', function (req, res) {
+function FindPost(nameOfPoster) {
+  var out = "";
+  client.connect(function (err) {
+          if (err) { throw err; }
+          const collection = client.db("SocialMediaDatabase").collection("SocialMedia");
+          let query = { 'ScreenName': ("" + nameOfPoster) };
+          collection.findOne(query, function (err,result) {
+              if (err) { throw err;  }
+              out += `<div><h2> <a href='/${result.ScreenName}' style="color: black">${result.ScreenName}</a>
+              <p>${result.RecentPosts}</p>`;
+            //  client.close();
+              });
+          });
+          return out;
+}
+
+app.get('/Logout', function (req, res) {
   req.session.destroy(function (err) {
       if (err) { throw err; }
       res.redirect('/Social');
