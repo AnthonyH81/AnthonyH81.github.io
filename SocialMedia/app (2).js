@@ -184,27 +184,28 @@ app.get('/Social', function (req, res) {
 //var feedList = [];
 var feedOutput = `<link href="BlogCSS.css" rel="stylesheet"><h1>${req.session.user.ScreenName}'s Feed'</h1>\n`;
   if(req.session.user) {
-    // let s = JSON.stringify(req.session, null, 4);
-    // let output = `<p>Welcome, ${req.session.user.ScreenName}.</p><pre>${s}</pre>`;
-    //   output += `<a href="/social/logout">log out</a>`;
-    //   res.send(makeHTMLPage(output));
-      client.connect(function (err) {
-              if (err) { throw err; }
-              const collection = client.db("SocialMediaDatabase").collection("SocialMedia");
-              let query = { 'ScreenName': req.session.user.ScreenName};
-              collection.findOne(query, function (err,result) {
-                  if (err) { throw err;  }
+    let s = JSON.stringify(req.session, null, 4);
+    let output = `<p>Welcome, ${req.session.user.ScreenName}.</p><pre>${s}</pre>`;
+      output += `<a href="/Logout">Log Out</a>`;
+      res.send(makeHTMLPage(output));
 
-                  for(feedi = 0; feedi < result.Following.length; feedi++) {
-
-                    feedOutput += FindPost(result.Following[feedi]);
-
-                  }
-                  client.close();
-                  });
-              });
-    output += `<a href="/Logout">Log Out</a>`;
-    res.send(makeHTMLPage(feedOutput));
+    //   client.connect(function (err) {
+    //           if (err) { throw err; }
+    //           const collection = client.db("SocialMediaDatabase").collection("SocialMedia");
+    //           let query = { 'ScreenName': req.session.user.ScreenName};
+    //           collection.findOne(query, function (err,result) {
+    //               if (err) { throw err;  }
+    //
+    //               for(feedi = 0; feedi < result.Following.length; feedi++) {
+    //
+    //                 feedOutput += FindPost(result.Following[feedi]);
+    //
+    //               }
+    //               client.close();
+    //               });
+    //           });
+    // output += `<a href="/Logout">Log Out</a>`;
+    // res.send(makeHTMLPage(feedOutput));
   } else {
     res.redirect('/Login');
   }
@@ -229,7 +230,7 @@ function FindPost(nameOfPoster) {
 app.get('/Logout', function (req, res) {
   req.session.destroy(function (err) {
       if (err) { throw err; }
-      res.redirect('/Social');
+      res.redirect('/Login');
       });
 });
 
