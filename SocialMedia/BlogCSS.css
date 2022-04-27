@@ -1,0 +1,56 @@
+h1{
+     font-size: 30px;
+     color: black;
+     text-align: center;
+     font-family: georgia;
+     font-weight: bold;
+     width: 100%;
+     display: block;
+     margin: auto;
+}
+
+h2{
+     font-size: 25px;
+     color: black;
+     text-align: left;
+     font-family: georgia;
+     font-weight: bold;
+}
+ p {
+     font-size: 20px;
+     color: black;
+     font-family: georgia;
+     margin-left: 5%;
+     width: 80%;
+     text-align: left;
+}
+
+ p1 {
+     font-size: 20px;
+     color: black;
+     font-family: georgia;
+     margin-left: 5%;
+     width: 80%;
+     text-align: left;
+     font-style: italic;
+}
+
+
+ div {
+     text-align: left;
+     margin-left: 10%;
+     width: 80%;
+     border-bottom: 1.5px solid black;
+     height: 100%;
+}
+
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
+
+ html{
+     background-color: #d3d3d3;
+}
